@@ -1,0 +1,33 @@
+
+#!/bin/bash
+printf '\n%.s' {1..29} #Adds number of blank rows
+echo -e "\033[H"  # Move cursor to the beginning of the previous line
+#clear
+echo "SolarOS 4.0.1 Generic_50203-2 sun4m i386 Unknown.Unknown"
+echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" | lolcat
+echo ""
+#figlet -f rowancap NeoConn | lolcat
+figlet -f rowancap NeoConn | sed 's/.*/\o033[38;5;208m&\o033[0m/'
+echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" | lolcat
+echo "Copyrite ⚠  Djedi Corp. All lights reserved."
+echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" | lolcat
+# Internal/External/Gateway ip(s)
+INTIP=$(ip route get 1.2.3.4 | awk '{print $7}')
+GATEIP=$(ip route get 8.8.8.8 | awk '{print $3}')
+EXTIP=$(curl -s ifconfig.me)
+ssh_sessions=$(who | grep -c 'pts/[0-9]' | grep -v "$(whoami)")
+
+# Debugging: Print the values
+echo -e "Internal IP: \t$INTIP" "\tExternal IP \t$EXTIP"
+echo -e "Gateway IP: \t$GATEIP" "\tActive SSH Sessions: \t$ssh_sessions"
+#echo "External IP: \t$EXTIP"
+echo "-------------------------------------------------------------"
+# Get the timestamp of the last successful login
+last_login=$(last -i | grep -v 'still logged in' | head -n 1 | awk '{print $5,$6,$7}')
+
+# Filter the journal logs for failed login attempts after the last login timestamp
+failed_attempts=$(journalctl _SYSTEMD_UNIT=sshd.service | grep 'Failed password' | grep "$last_login" | wc -l)
+echo "Number of failed login attempts since last login: $failed_attempts"
+# Count all-time failed login attempts (including password and public key)
+failed_attempts=$(grep -E 'Failed (password|publickey)' /var/log/auth.log | wc -l)
+echo "All failed login attempts: $failed_attempts"
