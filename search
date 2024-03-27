@@ -6,11 +6,20 @@ authenticate() {
     sudo -v || { echo "Authentication failed."; exit 1; }
 }
 
+# Function to display usage instructions
+display_usage() {
+    echo "Usage: 'search [keyword]' or 'search + [ENTER], input [keyword] then [ENTER].'"
+}
+
 # Check if a keyword is provided as an argument
 if [ -z "$1" ]; then
     # Prompt the user for a keyword
     echo "What are you looking for?"
-    read keyword
+    read -r keyword
+    if [ -z "$keyword" ]; then
+        display_usage
+        exit 1
+    fi
 else
     # Use the provided keyword
     keyword="$1"
@@ -31,5 +40,5 @@ echo "Commands being searched:"
 commands=$(compgen -c | grep "$keyword")
 while read -r command; do
     # Highlight commands in red
-    echo -e "\e[31m$command\e[0m: $(which $command)"
+    echo -e "\e[31m$command\e[0m: $(which "$command")"
 done <<< "$commands"
