@@ -8,7 +8,7 @@ authenticate() {
 
 # Function to display usage instructions
 display_usage() {
-    echo "Usage: 'search [keyword]' or 'search + [ENTER], input [keyword] then [ENTER].'"
+    echo "Usage: 'search [keyword]'; or 'search + [ENTER], [keyword] [ENTER].'"
 }
 
 # Check if a keyword is provided as an argument
