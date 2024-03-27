@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Function to check if user is authenticated
+authenticate() {
+    echo "Authentication required to search root directories."
+    sudo -v || { echo "Authentication failed."; exit 1; }
+}
+
+# Check if a keyword is provided as an argument
+if [ -z "$1" ]; then
+    # Prompt the user for a keyword
+    echo "What are you looking for?"
+    read keyword
+else
+    # Use the provided keyword
+    keyword="$1"
+fi
+
+# Authenticate if searching root directories or commands
+if [ "$keyword" = "/" ] || type "$keyword" >/dev/null 2>&1; then
+    authenticate
+fi
+
+# Search for directories with the specified keyword
+echo "Directories being searched:"
+directories=$(find / -type d -name "*$keyword*" 2>/dev/null)
+echo "$directories"
+
+# Search for commands with the specified keyword
+echo "Commands being searched:"
+commands=$(compgen -c | grep "$keyword")
+while read -r command; do
+    # Highlight commands in red
+    echo -e "\e[31m$command\e[0m: $(which $command)"
+done <<< "$commands"
