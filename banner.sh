@@ -13,7 +13,7 @@ echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" | lolcat
 # Internal/External/Gateway ip(s)
 INTIP=$(ip route get 1.2.3.4 | awk '{print $7}')
 GATEIP=$(ip route get 8.8.8.8 | awk '{print $3}')
-EXTIP=$(curl -s ifconfig.me)
+EXTIP=$(curl -s https://ipinfo.io/ip)
 ssh_sessions=$(who | grep -c 'pts/[0-9]' | grep -v "$(whoami)")
 
 # Debugging: Print the values
