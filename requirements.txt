@@ -8,3 +8,4 @@ lolcat
 curl
 nmap
 net-tools
+samba
