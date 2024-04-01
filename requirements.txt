@@ -9,3 +9,4 @@ curl
 nmap
 net-tools
 samba
+samba-common-bin
