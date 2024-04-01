@@ -1,0 +1,4 @@
+figlet
+curl
+nmap
+net-tools
