@@ -1,4 +1,10 @@
+htop
+neofetch
+iproute2
+wireless-tools
+wget
 figlet
+lolcat
 curl
 nmap
 net-tools
