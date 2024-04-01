@@ -11,6 +11,10 @@ display_usage() {
     echo "Usage: 'search [keyword]'; or 'search + [ENTER], [keyword] [ENTER].'"
 }
 
+# Color codes
+BLUE='\033[0;34m'
+WHITE='\033[0m'
+
 # Check if a keyword is provided as an argument
 if [ -z "$1" ]; then
     # Prompt the user for a keyword
@@ -33,12 +37,15 @@ fi
 # Search for directories with the specified keyword
 echo "Directories being searched:"
 directories=$(find / -type d -name "*$keyword*" 2>/dev/null)
-echo "$directories"
+while read -r directory; do
+    # Highlight directories in blue
+    echo -e "${BLUE}$directory${WHITE}"
+done <<< "$directories"
 
-# Search for commands with the specified keyword
-echo "Commands being searched:"
-commands=$(compgen -c | grep "$keyword")
-while read -r command; do
-    # Highlight commands in red
-    echo -e "\e[31m$command\e[0m: $(which "$command")"
-done <<< "$commands"
+# Search for files with the specified keyword
+echo "Files being searched:"
+files=$(find / -type f -name "*$keyword*" 2>/dev/null)
+while read -r file; do
+    # Highlight files in white
+    echo -e "${WHITE}$file"
+done <<< "$files"
