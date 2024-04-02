@@ -44,4 +44,5 @@ Please make sure to update tests as appropriate.
 
 
 ## License
-[MIT]
+[MIT](https://github.com/jdjones999/Linux-Essentials/LICENSE)
+
