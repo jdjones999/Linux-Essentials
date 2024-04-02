@@ -10,3 +10,4 @@ nmap
 net-tools
 samba
 samba-common-bin
+arp-scan
