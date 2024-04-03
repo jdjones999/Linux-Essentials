@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Function to change the banner text
+change_banner() {
+    read -p "Input new banner text: " new_banner
+    echo "$new_banner" > banner.txt  # Save the new banner text to a file
+    echo "Banner text updated successfully!"
+}
+
+# Main script starts here
+change_banner
