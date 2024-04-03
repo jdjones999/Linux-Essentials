@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Function to rename a file or folder
+rename_item() {
+    old_name="$1"
+    new_name="$2"
+    if [ -e "$old_name" ]; then
+        if [ -e "$new_name" ]; then
+            echo "Error: '$new_name' already exists."
+            exit 1
+        fi
+        mv -i "$old_name" "$new_name"
+        echo "Item renamed from '$old_name' to '$new_name'"
+    else
+        echo "Error: Item '$old_name' does not exist."
+        exit 1
+    fi
+}
+
+# Main script
+if [ "$#" -eq 0 ]; then
+    read -p "What file or folder do you want to rename? " old_name
+    read -p "Enter the new name: " new_name
+    rename_item "$old_name" "$new_name"
+elif [ "$#" -eq 1 ] && [ "$1" = "-y" ]; then
+    echo "Error: Please provide both old and new names."
+    exit 1
+elif [ "$#" -eq 1 ]; then
+    old_name="$1"
+    read -p "Enter the new name: " new_name
+    rename_item "$old_name" "$new_name"
+elif [ "$#" -eq 2 ]; then
+    old_name="$1"
+    new_name="$2"
+    rename_item "$old_name" "$new_name"
+elif [ "$#" -eq 3 ] && [ "$1" = "-y" ]; then
+    old_name="$2"
+    new_name="$3"
+    rename_item "$old_name" "$new_name"
+elif [ "$#" -eq 3 ]; then
+    echo "Error: Please provide the new name."
+    exit 1
+else
+    echo "Usage: ./rename [-y] <old_name> <new_name>"
+    echo "Usage: ./rename <old_name> <new_name>"
+    echo "Usage: ./rename [-y] <old_name>"
+    echo "Usage: ./rename <old_name>"
+    echo "Usage: ./rename"
+    exit 1
+fi
