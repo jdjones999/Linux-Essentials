@@ -131,4 +131,4 @@ fi
 # To add text to the last row
 echo "your_text_here" >> ~/.bashrc
 # Add comment for "change_banner" --here--
-# change_banner
+# change_banner # Command to change "banner"
