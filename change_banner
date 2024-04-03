@@ -9,3 +9,4 @@ change_banner() {
 
 # Main script starts here
 change_banner
+banner  # Run the banner command to display the updated banner text
