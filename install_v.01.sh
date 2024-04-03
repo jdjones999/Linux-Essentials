@@ -54,8 +54,24 @@ else
         display_section_header "$GREEN" "Search has been installed successfully."
     fi
 fi
+# 1. Installing "figlet & lolcat", downloading the font for figlet.
+#======================/ Figlet & Lolcat Install /======================
 
-#===============================[ Install (banner) ]===============================
+# Check if figlet is installed
+if ! command -v figlet &> /dev/null; then
+    display_section_header "Installing figlet..."
+    sudo apt install figlet -y > /dev/null 2>&1
+    display_section_header "Figlet has been successfully installed."
+fi
+
+# Check if lolcat is installed
+if ! command -v lolcat &> /dev/null; then
+    display_section_header "Installing lolcat..."
+    sudo apt install lolcat -y > /dev/null 2>&1
+    display_section_header "Lolcat has been successfully installed."
+fi
+
+#======================/ Download figlet font /======================
 
 # Specify the URL of the file to download
 url="http://www.figlet.org/fonts/rowancap.flf"
@@ -77,8 +93,16 @@ else
     # File already exists
     display_section_header "$ORANGE" "figlet font (rowancap) file already exists in the target directory."
 fi
+#======================[ Curl Install ]======================
+# 2. Installing curl
 
-#==
+# Check if figlet is installed
+if ! command -v curl &> /dev/null; then
+    display_section_header "Installing curl..."
+    sudo apt install curl -y > /dev/null 2>&1
+    display_section_header "Curl has been successfully installed."
+fi
+#======================[ Banner move to /bin/ ]======================
 
 # Get the current directory of the script
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
