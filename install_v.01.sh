@@ -50,7 +50,7 @@ else
         display_section_header "$ORANGE" "Search has been previously installed."
     else
         sudo cp "$SCRIPT_DIR/search" /bin/search
-        sudo chmod +x /bin/search
+        sudo chmod +x /bin/search # make an executable
         display_section_header "$GREEN" "Search has been installed successfully."
     fi
 fi
@@ -114,7 +114,7 @@ if [ "$(id -u)" = "0" ]; then
         display_section_header "$ORANGE" "banner has been previously installed."
     else
         cp "$SCRIPT_DIR/banner" /bin/banner
-        chmod +x /bin/banner
+        chmod +x /bin/banner # make an executable
         display_section_header "$GREEN" "banner has been installed successfully."
     fi
 else
