@@ -13,7 +13,7 @@ BLUE='\033[0;34m'   # Blue color code
 GREEN='\033[38;2;22;196;12m'  # Green -Terminal Green
 ORANGE='\033[0;33m' # Orange color code
 NC='\033[0m' # No Color
-
+#===============================[ Install form requirements.txt ]===============================
 # Check if requirements.txt file exists
 if [ -f "requirements.txt" ]; then
     display_section_header "$BLUE" "Installing packages from requirements.txt:"
