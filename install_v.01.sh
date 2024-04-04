@@ -152,6 +152,30 @@ else
         display_section_header "$GREEN" "change_banner has been installed successfully."
     fi
 fi
+#==
+
+# Define the source and destination paths
+source_path="banner.conf"
+destination_path="/etc/banner.conf"
+
+# Check if the user is root
+if [ "$(id -u)" -eq 0 ]; then
+    # If the user is root, move the file directly
+    mv "$source_path" "$destination_path"
+    echo "File moved to $destination_path"
+else
+    # If not root, check if sudo is available
+    if [ -x "$(command -v sudo)" ]; then
+        # If sudo is available, use it to move the file
+        sudo mv "$source_path" "$destination_path"
+        echo "File moved to $destination_path using sudo"
+    else
+        # If sudo is not available, exit with an error message
+        echo "Error: sudo is not available. Please run this script as root or with sudo."
+        exit 1
+    fi
+fi
+
 #======================[ **Add text to last row ~/.bashrc ]======================
 # To add text to the last row
 echo "your_text_here" >> ~/.bashrc
