@@ -175,6 +175,8 @@ else
     fi
 fi
 #==
+touch banner.conf
+echo "neoconn" > banner.conf
 
 # Define the source and destination paths
 source_path="banner.conf"
