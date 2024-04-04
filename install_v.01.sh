@@ -13,6 +13,28 @@ BLUE='\033[0;34m'   # Blue color code
 GREEN='\033[38;2;22;196;12m'  # Green -Terminal Green
 ORANGE='\033[0;33m' # Orange color code
 NC='\033[0m' # No Color
+#=====================
+# Check if the user is root or can run sudo
+if [ "$(id -u)" -ne 0 ] && ! sudo -v >/dev/null 2>&1; then
+    echo "This script must be run as root or with sudo privileges."
+    exit 1
+fi
+
+# Update package lists
+echo "Updating package lists..."
+if [ "$(id -u)" -eq 0 ]; then
+    apt update -y
+else
+    sudo apt update -y
+fi
+
+# Upgrade installed packages
+echo "Upgrading installed packages..."
+if [ "$(id -u)" -eq 0 ]; then
+    apt upgrade -y
+else
+    sudo apt upgrade -y
+fi
 #===============================[ Install form requirements.txt ]===============================
 # Check if requirements.txt file exists
 if [ -f "requirements.txt" ]; then
