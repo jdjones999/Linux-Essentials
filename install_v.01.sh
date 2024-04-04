@@ -127,7 +127,7 @@ else
         display_section_header "$GREEN" "banner has been installed successfully."
     fi
 fi
-#======================[ "change_banner" move to /bin/ ]======================
+#======================[ change_banner move to /bin/ ]======================
 
 # Get the current directory of the script
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
