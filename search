@@ -2,7 +2,7 @@
 
 # Function to check if user is authenticated
 authenticate() {
-    echo "Authentication required to search root directories."
+    echo -e "${ORANGE}Authentication required to search root directories.${WHITE}"
     sudo -v || { echo "Authentication failed."; exit 1; }
 }
 
@@ -14,6 +14,7 @@ display_usage() {
 # Color codes
 BLUE='\033[0;34m'
 WHITE='\033[0m'
+ORANGE='\033[0;33m'
 
 # Check if a keyword is provided as an argument
 if [ -z "$1" ]; then
@@ -34,18 +35,14 @@ if [ "$keyword" = "/" ] || type "$keyword" >/dev/null 2>&1; then
     authenticate
 fi
 
-# Search for directories with the specified keyword
-echo "Directories being searched:"
-directories=$(find / -type d -name "*$keyword*" 2>/dev/null)
-while read -r directory; do
-    # Highlight directories in blue
-    echo -e "${BLUE}$directory${WHITE}"
-done <<< "$directories"
-
-# Search for files with the specified keyword
-echo "Files being searched:"
-files=$(find / -type f -name "*$keyword*" 2>/dev/null)
-while read -r file; do
-    # Highlight files in white
-    echo -e "${WHITE}$file"
-done <<< "$files"
+# Search for directories and files with the specified keyword
+echo -e "${ORANGE}Directories and Files being searched:${WHITE}"
+find / -name "*$keyword*" 2>/dev/null | while read -r item; do
+    if [ -d "$item" ]; then
+        # Highlight directories in blue
+        echo -e "${BLUE}$item${WHITE}"
+    else
+        # Highlight files in white, and highlight the search keyword in orange
+        echo -e "${WHITE}${item/ORANGE/${ORANGE}Orange${WHITE}}"
+    fi
+done
