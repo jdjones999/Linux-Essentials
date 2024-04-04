@@ -127,6 +127,31 @@ else
         display_section_header "$GREEN" "banner has been installed successfully."
     fi
 fi
+#======================[ "change_banner" move to /bin/ ]======================
+
+# Get the current directory of the script
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# Check if the current user is root
+if [ "$(id -u)" = "0" ]; then
+    # If user is root, no need for sudo
+    if [ -f "/bin/change_banner" ]; then
+        display_section_header "$ORANGE" "change_banner has been previously installed."
+    else
+        cp "$SCRIPT_DIR/change_banner" /bin/change_banner
+        chmod +x /bin/change_banner # make an executable
+        display_section_header "$GREEN" "change_banner has been installed successfully."
+    fi
+else
+    # If user is not root, use sudo
+    if [ -f "/bin/change_banner" ]; then
+        display_section_header "$ORANGE" "change_banner has been previously installed."
+    else
+        sudo cp "$SCRIPT_DIR/change_banner" /bin/change_banner
+        sudo chmod +x /bin/change_banner
+        display_section_header "$GREEN" "change_banner has been installed successfully."
+    fi
+fi
 #======================[ **Add text to last row ~/.bashrc ]======================
 # To add text to the last row
 echo "your_text_here" >> ~/.bashrc
