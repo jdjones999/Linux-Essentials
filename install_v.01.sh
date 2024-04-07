@@ -202,6 +202,6 @@ fi
 
 #======================[ **Add text to last row ~/.bashrc ]======================
 # To add text to the last row
-echo "your_text_here" >> ~/.bashrc
+echo "banner" >> ~/.bashrc
 # Add comment for "change_banner" --here--
 # change_banner # Command to change "banner"
