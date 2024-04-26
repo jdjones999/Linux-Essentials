@@ -220,3 +220,4 @@ fi
 echo "banner" >> ~/.bashrc
 # Add comment for "change_banner" --here--
 # change_banner # Command to change "banner"
+banner
