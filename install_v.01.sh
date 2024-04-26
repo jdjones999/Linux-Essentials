@@ -51,6 +51,21 @@ if [ -f "requirements.txt" ]; then
 else
     display_section_header "$RED" "Error: requirements.txt file not found."
 fi
+#===============================[ Install (Cockpit) ]===============================
+# Function to install Cockpit using apt
+install_cockpit() {
+    local codename=$(grep VERSION_CODENAME /etc/os-release | cut -d'=' -f2)
+    sudo apt update
+    sudo apt install -t ${codename}-backports cockpit -y
+}
+
+# Check if script is run as root or with sudo privileges
+if [ "$EUID" -eq 0 ]; then
+    install_cockpit
+else
+    echo "This script requires root privileges. Running with sudo..."
+    sudo -E bash -c "$(declare -f install_cockpit); install_cockpit"
+fi
 #===============================[ Install (search) ]===============================
 
 # Get the current directory of the script
